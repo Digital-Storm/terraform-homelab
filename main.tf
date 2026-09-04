@@ -30,8 +30,8 @@ provider "proxmox" {
 #   filename = "./id_rsa.pub"
 # }
 
-resource "proxmox_virtual_environment_vm" "my_vm" {
-  name      = "my-vm"
+resource "proxmox_virtual_environment_vm" "palworld1" {
+  name      = "palworld1"
   node_name = "enterprise"
   stop_on_destroy = true
 
@@ -64,5 +64,13 @@ resource "proxmox_virtual_environment_vm" "my_vm" {
 #       username = "exampleuser"
 #       keys     = [trimspace(data.local_file.ssh_public_key.content)]
 #     }
+  }
+
+    cpu {
+    cores = 4
+  }
+
+  memory {
+    dedicated = 16384
   }
 }
