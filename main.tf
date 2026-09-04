@@ -8,6 +8,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "5.24.0"
     }
+    ansible = {
+      source  = "ansible/ansible"
+      version = "1.5.0"
+    }
   }
 }
 
@@ -66,7 +70,7 @@ resource "proxmox_virtual_environment_vm" "palworld1" {
 #     }
   }
 
-    cpu {
+  cpu {
     cores = 4
   }
 
