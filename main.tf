@@ -34,7 +34,7 @@ provider "proxmox" {
 #   filename = "./id_rsa.pub"
 # }
 
-resource "proxmox_virtual_environment_vm" "palworld1" {
+resource "proxmox_virtual_environment_vm" "palworld" {
   name      = "palworld1"
   node_name = "enterprise"
   stop_on_destroy = true
@@ -55,7 +55,7 @@ resource "proxmox_virtual_environment_vm" "palworld1" {
 
   initialization {
     # uncomment and specify the datastore for cloud-init disk if default `local-lvm` is not available
-     datastore_id = "local-lvm"
+    # datastore_id = "local-lvm"
 
 #     ip_config {
 #       ipv4 {
@@ -76,5 +76,21 @@ resource "proxmox_virtual_environment_vm" "palworld1" {
 
   memory {
     dedicated = 16384
+  }
+
+  connection {
+    type = "ssh"
+    user = "vmadmin"
+    #private_key = file("~/.ssh/id_rsa")
+    host = self.ipv4_addresses[1][0]
+    agent = true
+  }
+
+  provisioner "remote-exec" {
+    inline = ["echo 'SSH is ready for Ansible!'"]
+  }
+
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i '${self.ipv4_addresses[1][0]},' -u vmadmin ~/ansible_quickstart/install_steam.yml"
   }
 }
