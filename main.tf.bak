@@ -40,7 +40,6 @@ resource "proxmox_virtual_environment_vm" "palworld" {
   name      = "palworld${count.index}"
   node_name = "enterprise"
   stop_on_destroy = true
-  reboot = true
   reboot_after_update = true
 
   clone {
@@ -60,13 +59,12 @@ resource "proxmox_virtual_environment_vm" "palworld" {
   initialization {
     # uncomment and specify the datastore for cloud-init disk if default `local-lvm` is not available
     # datastore_id = "local-lvm"
-
-    ip_config {
-      ipv4 {
-        address = "192.168.20.${200 + count.index}/24"
-        gateway = "192.168.20.1"
-      }
-    }
+    #ip_config {
+    #  ipv4 {
+    #    address = "192.168.20.${200 + count.index}/24"
+    #    gateway = "192.168.20.1"
+    #  }
+    #}
 
 #     user_account {
 #       username = "exampleuser"
