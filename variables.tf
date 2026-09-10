@@ -10,14 +10,8 @@ variable "db_api_token" {
     sensitive = true
 }
 
-variable "game_server_password" {
-    description = "Palworld Server password"
-    type = string
-    sensitive = true
-}
-
-variable "game_admin_password" {
-    description = "Palworld Server Admin Password"
+variable "db_user" {
+    description = "Proxmox User Account"
     type = string
     sensitive = true
 }
